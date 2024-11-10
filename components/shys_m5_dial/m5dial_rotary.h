@@ -76,7 +76,7 @@ namespace esphome
                     }
 
                     if (M5Dial.BtnA.pressedFor(longPressMs)) {
-                        M5Dial.Speaker.tone(4000, 200);
+                        // M5Dial.Speaker.tone(4000, 200);
                         longPress = true;
                         is_event = true;
                     }

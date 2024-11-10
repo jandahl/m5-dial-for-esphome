@@ -181,7 +181,7 @@ namespace esphome
 
                     if(y > minOpenY && y < maxOpenY){
                         if(x>minOpenX && x<maxOpenX){
-                            M5Dial.Speaker.tone(5000, 20);
+                            // M5Dial.Speaker.tone(5000, 20);
                             this->openLock();
                             return true;
                         } 

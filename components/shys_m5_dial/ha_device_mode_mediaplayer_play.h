@@ -282,17 +282,17 @@ namespace esphome
 
                     if(y > minHeight && y < maxHeight){
                         if(x>minPrevX && x<maxPrevX){
-                            M5Dial.Speaker.tone(5000, 20);
+                            // M5Dial.Speaker.tone(5000, 20);
                             haApi.setPreviousTrackOnMediaPlayer(this->device.getEntityId());
                             return true;
 
                         } else if(x>minPlayX && x<maxPlayX){
-                            M5Dial.Speaker.tone(5000, 20);
+                            // M5Dial.Speaker.tone(5000, 20);
                             haApi.playPauseMediaPlayer(this->device.getEntityId());
                             return true;
 
                         } else if(x>minNextX && x<maxNextX){
-                            M5Dial.Speaker.tone(5000, 20);
+                            // M5Dial.Speaker.tone(5000, 20);
                             haApi.setNextTrackOnMediaPlayer(this->device.getEntityId());
                             return true;
                         } 
