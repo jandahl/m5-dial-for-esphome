@@ -1,60 +1,54 @@
 substitutions:
   name: "m5-dial"
   wifi_ssid: !secret wifi_ssid
-  wifi_password: !secret wifi_password  
+  wifi_password: !secret wifi_password
 
-packages:
-  m5_tough_package:
-    url: https://github.com/jandahl/m5-dial-for-esphome
-    ref: main
-    file: shys-m5-dial.yaml
-    refresh: 1h
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+  project:
+    name: smarthomeyourself.m5_dial
+    version: "1.0"
 
-shys_m5_dial:
-  name: Dial
-  screen_off_time: 45000
-  rotary_step_width: 5
-  long_press_duration: 1200
-  font: FreeSans14pt7b
-  font_factor: 1
+  platformio_options:
+    lib_deps:
+      - WiFi
+      - SPI
+      - FS
+      - Wire
+      - EEPROM
+      - ArduinoJson
+      - m5stack/M5Unified@0.1.14
+      - m5stack/M5Dial
 
-  devices:
-    lights: 
-      - entity: light.jan_bedroom_lamp
-        name: "Jan bedroom lamp"
-        modes:
-          dimm_mode:
-            enable: true
-            rotary_step_width: 10
-          rgb_mode:
-            enable: false
-          white_mode:
-            enable: true
-            rotary_step_width: 10
-            min_kelvin: 2500
-            max_kelvin: 7000 
-      - entity: light.walk_in_closet
-        name: "Walk-in closet"
-        modes:
-          dimm_mode:
-            enable: true
-            rotary_step_width: 10
-          rgb_mode:
-            enable: true
-            rotary_step_width: 30
-    
-    media_player:
-      - entity: media_player.bedroom_spy
-        name: "Bedroom spy"
-        modes:
-          play_mode:
-            rotary_step_width: 10
-          source_mode:
-            rotary_step_width: 1
-            sources:
-              - name: "P4 Sjaelland"
-                content_id: "https://drliveradio1.akamaized.net/hls/live/2097651/p4sjaelland/masterab.m3u8"
-                content_type: TUNEIN
-              - name: "KNR"
-                content_id: "http://knr.gl/radiolivestream"
-                content_type: TUNEIN
+external_components:
+  - source:
+      type: git
+      url: https://github.com/jandahl/m5-dial-for-esphome/
+      ref: main
+    components: [shys_m5_dial]
+
+dashboard_import:
+  package_import_url: github://jandahl/m5-dial-for-esphome/shys-m5-dial.yaml@main
+  import_full_config: false
+
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: arduino
+
+logger:
+  level: DEBUG
+
+api:
+ota:
+  platform: esphome
+
+improv_serial:
+captive_portal:
+
+wifi:
+  ssid: ${wifi_ssid}
+  password: ${wifi_password}
+  ap:
+    password: !secret wifi_fallback_password
